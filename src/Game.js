@@ -53,6 +53,7 @@ const Game = () => {
         setPlayerScore(0);
         setPlayerAceCount(0);
         setDealerScore(0);
+        setDealerAceCount(0);
         setGameResult('');
     };
 
@@ -106,12 +107,7 @@ const Game = () => {
                     setDealerHand([...dealerHand, data.cards[0]])
                     setScore(true, data.cards[0].value)
                 })
-                .catch(console.log)
-                .finally(() => {
-                    if (dealerScore >= 17) {
-                        calculateResult();
-                    }
-                });
+                .catch(console.log);
         } else {
             calculateResult();
         }

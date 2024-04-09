@@ -179,6 +179,8 @@ const Game = () => {
                     gameState={gameState}
                     setGameState={setGameState} //state lifting
                     dealerDraw={dealerDraw}
+                    calculateResult={calculateResult}
+                    playerScore={playerScore}
                 />
             </div>
         </div>

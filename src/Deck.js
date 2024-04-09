@@ -14,7 +14,9 @@ function Deck(props) {
             ) : props.gameState === 'start' ? (
                 // Show when game starts
                 <>
-                    <button onClick={props.onHit} className="col btn btn-primary m-1">Hit</button>
+                    <button onClick={() =>{
+                        if(props.playerScore<=21) {props.onHit();}
+                        else {props.calculateResult()}}} className="col btn btn-primary m-1">Hit</button>
                     <button onClick={() => {
                         props.onStand();
                         props.setGameState('dealer')

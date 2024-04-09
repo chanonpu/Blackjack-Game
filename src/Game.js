@@ -67,10 +67,14 @@ const Game = () => {
                 setScore(false, data.cards[0].value)
             })
             .catch(console.log);
+    };
+
+    //check busted after each hit
+    useEffect(() => {
         if (playerScore > 21) {
             calculateResult();
         }
-    };
+    }, [playerScore]);
 
     const setScore = (dealer, ...score) => {
         let sum = dealer ? dealerScore : playerScore;

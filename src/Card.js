@@ -18,7 +18,7 @@ class Card extends React.Component {
       <img 
         src={this.state.image}
         alt={this.state.code}
-        class="img-fluid"
+        class="img-fluid mx-2"
         style={{ width: '100px', height: 'auto' }}
       />
       </>

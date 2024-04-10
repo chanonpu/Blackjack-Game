@@ -14,6 +14,13 @@ function Hand(props) {
                     suit={card.suit}
                 />
             ))}
+            {props.dealer && props.gameState === 'start' ? <Card
+                    index= {-1}
+                    code={'back'}
+                    image={'https://deckofcardsapi.com/static/img/back.png'}
+                    value={0}
+                    suit={0}
+                /> : null} 
             </div>
         </div>
     );

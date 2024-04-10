@@ -33,13 +33,13 @@ const Game = () => {
         fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`)
             .catch(console.log);
         // Draw 2 cards each for player and dealer
-        fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=4`)
+        fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=3`)
             .then(res => res.json())
             .then(data => {
                 setPlayerHand([data.cards[0], data.cards[2]]);
                 setScore(false, data.cards[0].value, data.cards[2].value)
-                setDealerHand([data.cards[1], data.cards[3]]);
-                setScore(true, data.cards[1].value, data.cards[3].value)
+                setDealerHand([data.cards[1]]);
+                setScore(true, data.cards[1].value)
                 setRemaining(data.remaining);
                 setGameResult(''); // reset game result
             })
@@ -97,8 +97,15 @@ const Game = () => {
         dealer ? setDealerAceCount(ace) : setPlayerAceCount(ace);
     };
 
-    const onStand = () => {
-        //will implement show dealer face down card
+    const onStand = () => { //draw one card to dealer hand to replace back card
+        fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
+            .then(res => res.json())
+            .then((data) => {
+                setRemaining(data.remaining);
+                setDealerHand([...dealerHand, data.cards[0]])
+                setScore(true, data.cards[0].value)
+            })
+            .catch(console.log);
     };
 
     const dealerDraw = () => {
@@ -122,19 +129,19 @@ const Game = () => {
 
         if (playerScore > 21) {
             result = (
-                <div className="alert alert-danger">
-                    <p className="h4 text-center">Busted</p>
+                <div className="alert alert-danger mx-5 my-0 p-1">
+                    <p className="h3 text-center">Busted</p>
                 </div>
             );
         } else if (dealerScore < playerScore || dealerScore > 21) {
             result = (
-                <div className="alert alert-success">
+                <div className="alert alert-success mx-5 my-0 p-1">
                     <p className="h4 text-center">You Win</p>
                 </div>
             );
         } else if (dealerScore === playerScore) {
             result = (
-                <div className="alert alert-warning">
+                <div className="alert alert-warning mx-5 my-0 p-1">
                     <p className="h4 text-center">Tie</p>
                 </div>
             );
@@ -152,23 +159,31 @@ const Game = () => {
     return (
         <div class="container-fluid">
             <p class="h2">Welcome to our project</p>
+
+            {/* Dealer part */}
+
             <div className='row'>
                 <Player name='Dealer' score={dealerScore} dealer={true}>
-                    <Hand hand={dealerHand} />
+                    <Hand hand={dealerHand} dealer={true} gameState={gameState} />
                 </Player>
             </div>
 
             {/* Show result when game end */}
 
             {gameResult && (
-                <p>{gameResult}</p>
+                <p class='m-1'>{gameResult}</p>
             )}
+
+            {/* Player part */}
 
             <div className='row'>
                 <Player name='Player' score={playerScore} dealer={false}>
-                    <Hand hand={playerHand} />
+                    <Hand hand={playerHand} dealer={false} />
                 </Player>
             </div>
+
+            {/* Control part */}
+
             <div className='row'>
                 <Deck
                     startGame={startGame}
@@ -179,8 +194,6 @@ const Game = () => {
                     gameState={gameState}
                     setGameState={setGameState} //state lifting
                     dealerDraw={dealerDraw}
-                    calculateResult={calculateResult}
-                    playerScore={playerScore}
                 />
             </div>
         </div>

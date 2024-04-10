@@ -98,14 +98,7 @@ const Game = () => {
     };
 
     const onStand = () => { //draw one card to dealer hand to replace back card
-        fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`)
-            .then(res => res.json())
-            .then((data) => {
-                setRemaining(data.remaining);
-                setDealerHand([...dealerHand, data.cards[0]])
-                setScore(true, data.cards[0].value)
-            })
-            .catch(console.log);
+        dealerDraw();
     };
 
     const dealerDraw = () => {
@@ -128,6 +121,7 @@ const Game = () => {
         let result;
 
         if (playerScore > 21) {
+            dealerDraw();
             result = (
                 <div className="alert alert-danger mx-5 my-0 p-1">
                     <p className="h3 text-center">Busted</p>
@@ -147,7 +141,7 @@ const Game = () => {
             );
         } else {
             result = (
-                <div className="alert alert-danger">
+                <div className="alert alert-danger mx-5 my-0 p-1">
                     <p className="h4 text-center">You Lose</p>
                 </div>
             );
@@ -157,12 +151,12 @@ const Game = () => {
     };
 
     return (
-        <div class="container-fluid">
+        <div class="container-fluid ">
             <p class="h2">Welcome to our project</p>
 
             {/* Dealer part */}
 
-            <div className='row'>
+            <div class='row'>
                 <Player name='Dealer' score={dealerScore} dealer={true}>
                     <Hand hand={dealerHand} dealer={true} gameState={gameState} />
                 </Player>
@@ -176,7 +170,7 @@ const Game = () => {
 
             {/* Player part */}
 
-            <div className='row'>
+            <div class='row'>
                 <Player name='Player' score={playerScore} dealer={false}>
                     <Hand hand={playerHand} dealer={false} />
                 </Player>
@@ -184,7 +178,7 @@ const Game = () => {
 
             {/* Control part */}
 
-            <div className='row'>
+            <div class='row'>
                 <Deck
                     startGame={startGame}
                     remaining={remaining}

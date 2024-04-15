@@ -5,7 +5,7 @@ function Hand(props) {
     return (
         <div class="card">
             <div class="card-body">
-            {props.hand.map((card, index) => (
+            {props.hand.map((card, index) => ( //Map to show all cards in hand
                 <Card
                     index={index}
                     code={card.code}

@@ -158,7 +158,7 @@ const Game = () => {
 
             <div class='row'>
                 <Player name='Dealer' score={dealerScore} dealer={true}>
-                    <Hand hand={dealerHand} dealer={true} gameState={gameState} />
+                    <Hand hand={dealerHand} dealer={true} gameState={gameState} /> {/* Component */}
                 </Player>
             </div>
 
@@ -172,7 +172,7 @@ const Game = () => {
 
             <div class='row'>
                 <Player name='Player' score={playerScore} dealer={false}>
-                    <Hand hand={playerHand} dealer={false} />
+                    <Hand hand={playerHand} dealer={false} />  {/* Component */}
                 </Player>
             </div>
 
@@ -180,14 +180,14 @@ const Game = () => {
 
             <div class='row'>
                 <Deck
-                    startGame={startGame}
+                    startGame={startGame}  //props drilling
                     remaining={remaining}
-                    onHit={onHit}
-                    onStand={onStand}
-                    onReset={resetGame}
+                    onHit={onHit}  //props drilling
+                    onStand={onStand}  //props drilling
+                    onReset={resetGame}  //props drilling
                     gameState={gameState}
                     setGameState={setGameState} //state lifting
-                    dealerDraw={dealerDraw}
+                    dealerDraw={dealerDraw} //props drilling
                 />
             </div>
         </div>

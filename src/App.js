@@ -1,27 +1,29 @@
-import './App.css';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap
 import Help from './Help';
 import Profile from './Profile';
 import Game from './Game';
-import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap
+
+// add react-bootstrap for phase2
 
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <nav>
-          <ul class="nav nav-pills">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/help">Help</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
-            </li>
-          </ul>
-        </nav>
+      <Navbar bg="dark" data-bs-theme="dark" style={{ marginBottom: '20px' }}>
+        <Container>
+          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/help">Help</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+        
         <Routes>
           <Route path="/" element={<Game />} />
           <Route path="/help" element={<Help />} />

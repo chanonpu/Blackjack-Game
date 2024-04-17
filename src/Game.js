@@ -69,9 +69,9 @@ const Game = () => {
             .catch(console.log);
     };
 
-    //check busted after each hit
+    //check busted/blackjack after each hit
     useEffect(() => {
-        if (playerScore > 21) {
+        if (playerScore >= 21) {
             calculateResult();
         }
     }, [playerScore]);
@@ -119,8 +119,18 @@ const Game = () => {
 
     const calculateResult = () => {
         let result;
-
-        if (playerScore > 21) {
+        if (playerScore === 21 && playerHand.length === 2) {
+            dealerDraw();
+            result = dealerScore === 21 ? ( // both black jack
+                <div className="alert alert-warning mx-5 my-0 p-1">
+                    <p className="h4 text-center">Tie</p>
+                </div>
+            ) : (
+                <div className="alert alert-success mx-5 my-0 p-1">
+                    <p className="h4 text-center">BLACK JACK!!</p>
+                </div>
+            );
+        } else if (playerScore > 21) {
             dealerDraw();
             result = (
                 <div className="alert alert-danger mx-5 my-0 p-1">

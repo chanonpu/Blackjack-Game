@@ -31,7 +31,7 @@ const Help = () => {
         <li>If both hands have the same value, it's a push (tie) and your bet is returned.</li>
       </ol>
 
-      <Accordion >
+      <Accordion defaultActiveKey="1"> {/* make it default not open */}
         <Accordion.Item>
           <Accordion.Header><h4>Tips</h4></Accordion.Header>
           <Accordion.Body>

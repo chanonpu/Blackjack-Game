@@ -53,8 +53,6 @@ const Profile = () => {
                         <li>Username: {username}</li>
                         <li>Email: {email}</li>
                     </ul>
-                    <p>View your total wins: {/* Display total wins here */}</p>
-                    <p>View your total losses: {/* Display total losses here */}</p>
                 </div>
             ) : isCreatingAccount ? (
                 <div>
